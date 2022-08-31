@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "596310292109",
+    "firebase_url": "https://atlas-d24f7-default-rtdb.firebaseio.com",
+    "project_id": "atlas-d24f7",
+    "storage_bucket": "atlas-d24f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596310292109:android:add927630d831bc6f354c4",
+        "android_client_info": {
+          "package_name": "com.example.atlasilham"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596310292109-v398cnmagh46rk9vn2nm7bt7nnvi76d4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-yFDzZwbrjUxxGNPQEkysfQLtrGQQ3QQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596310292109-v398cnmagh46rk9vn2nm7bt7nnvi76d4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
