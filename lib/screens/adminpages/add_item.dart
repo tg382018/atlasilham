@@ -1,8 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:atlasilham/classes/categories.dart';
 import 'package:atlasilham/classes/Items.dart';
 import 'package:atlasilham/components/dropdown.dart';
-import 'package:atlasilham/components/quill_editor.dart';
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import '../../components/editor.dart';
 import '../../firebase_process/firestore.dart';
 import '../main_screen.dart';
-import 'package:super_editor/super_editor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class addItem extends StatefulWidget {
@@ -24,6 +25,7 @@ class addItem extends StatefulWidget {
 }
 
 class _addItemState extends State<addItem> {
+  QuillController _controller = QuillController.basic();
   var frtool=Firestore();
   var kn1 = TextEditingController();
   var kn2 = TextEditingController();
@@ -34,13 +36,13 @@ class _addItemState extends State<addItem> {
   var kn7 = TextEditingController();
   var kn8 = TextEditingController();
   bool switchim = false;
-  late DocumentEditor _controller;
   FirebaseStorage storageRef=FirebaseStorage.instance;
   ImagePicker filePicker=ImagePicker();
   XFile? xFilem;
   String SelectedFileName="";
   String uploadedPath="";
   String selectedValue = "Cümle Atlası";
+  var jsonm;
   //final document =_loadDocument();
   List<DropdownMenuItem<String>> get dropdownItems{
     List<DropdownMenuItem<String>> menuItems = [
@@ -55,33 +57,13 @@ class _addItemState extends State<addItem> {
     return menuItems;
   }
 
-  final myDoc = MutableDocument(
-    nodes: [
-      ParagraphNode(
-        id: DocumentEditor.createNodeId(),
-        text: AttributedText(text: 'This is a header'),
-        metadata: {
-          'blockType': header1Attribution,
-        },
-      ),
-      ParagraphNode(
-        id: DocumentEditor.createNodeId(),
-        text: AttributedText(text:'This is the first paragraph'),
-      ),
-    ],
-  );
 
-    void islem()
-    {
-      final docEditor = DocumentEditor(document: myDoc);
 
-    }
-
-@override
-  void initState() {
-    // TODO: implement initState
-    kn2.text;
-  }
+void jsn()
+{
+   jsonm = jsonEncode(_controller.document.toDelta().toJson());
+  print(json);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -110,35 +92,27 @@ class _addItemState extends State<addItem> {
                 )),
 
 
-        /*    Container(
-              height: MediaQuery.of(context).size.height/7,
-              child: TextField(
-                controller: kn2,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: "Açıklama Giriniz",
-                  filled: true,
-                ),
-              ),
-            ),*/
 
-    /*        Column(
-              children: [
-                ZefyrToolbar.basic(controller: _controller),
-                Container(decoration: BoxDecoration(border: Border.all(color: Colors.black)),width: 311,
-                  height: 211,
-                  child: Expanded(
-                    child: ZefyrEditor(
+           Container(width:511,height:311,child: Column(
+
+             children: [
+               QuillToolbar.basic(controller: _controller),
+               Container(width: 411,height: 155,
+                 child: Expanded(
+                   child: Container(
+                     child: QuillEditor.basic(
+                       controller: _controller,
+                       readOnly: false, // true for view only mode
+                     ),
+                   ),
+                 ),
+               ),
 
 
-                      controller: _controller,
-                    ),
-                  ),
-                ),
-              ],
-            ),*/
+             ],
 
-            Container(width:511,height:311,child: QuilEditor()),
+           ),
+           ),
 
         SizedBox(height: 8,),
             Container(
@@ -208,8 +182,9 @@ class _addItemState extends State<addItem> {
 
                 child: Text("Paylasım Ekle"),
                 onPressed: () {
+                  jsn();
                   String a = kn1.text;
-                  String c = kn2.text;
+                  String c = jsonm;
                   String d = kn3.text;
                   String e = kn4.text;
                   String f = kn5.text;

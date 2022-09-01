@@ -1,4 +1,5 @@
 import 'package:atlasilham/classes/categories.dart';
+import 'package:atlasilham/screens/about.dart';
 import 'package:atlasilham/screens/adminpages/login.dart';
 import 'package:atlasilham/screens/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -141,7 +142,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                                                           Login()));
                                             } else if (ktgKeyd ==
                                                 "Uygulama Hakkında") {
-                                              //   Navigator.push(context, MaterialPageRoute(builder: (context)=>mainPage(katlist: widget.katlist, itemlist: widget.itemlist)));
+                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
                                             } else {
                                               Navigator.push(
                                                   context,

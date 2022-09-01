@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
-
+import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,8 +24,24 @@ class ItemPage extends StatefulWidget {
 
 class _ItemPageState extends State<ItemPage> {
 
+
+  QuillController _controller = QuillController.basic();
   ScreenshotController sckon=ScreenshotController();
 
+
+  void gelenikaydet(incomingJSONText)
+  {
+    var myJSON = jsonDecode(incomingJSONText);
+    _controller = QuillController(
+        document: Document.fromJson(myJSON),
+        selection: TextSelection.collapsed(offset: 0));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    gelenikaydet(widget.item.item_uzunmetin);
+  }
   @override
   Widget build(BuildContext context) {
     return Screenshot(controller: sckon,
@@ -79,7 +96,18 @@ class _ItemPageState extends State<ItemPage> {
               padding: const EdgeInsets.all(8.0),
               child: Center(child: Text(widget.item.item_baslik,style: TextStyle(fontWeight: FontWeight.bold,fontSize:23),textAlign: TextAlign.center,)),
             ),
-            Text(widget.item.item_uzunmetin,textAlign:TextAlign.left,),
+            QuillEditor(
+              focusNode: FocusNode(),
+              padding: EdgeInsets.all(0),
+              autoFocus: false,
+              scrollable: true,
+              showCursor: false,
+              controller: _controller,
+              readOnly: true,
+              expands: false,
+              scrollController: ScrollController(),
+              // true for view only mode
+            ),
             SizedBox(height: MediaQuery.of(context).size.height/17,),
             Container(child: Column(
               children: [
