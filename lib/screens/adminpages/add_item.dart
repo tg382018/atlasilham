@@ -26,6 +26,7 @@ class addItem extends StatefulWidget {
 
 class _addItemState extends State<addItem> {
   QuillController _controller = QuillController.basic();
+
   var frtool=Firestore();
   var kn1 = TextEditingController();
   var kn2 = TextEditingController();
@@ -61,6 +62,7 @@ class _addItemState extends State<addItem> {
 
 void jsn()
 {
+
    jsonm = jsonEncode(_controller.document.toDelta().toJson());
   print(json);
 }
@@ -76,10 +78,13 @@ void jsn()
               height: 11,
             ),
             Container(
-              child: Text(
-                "Paylasim Ekleme",
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 21),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  "Paylasim Ekleme",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(fontSize: 21),
+                ),
               ),
               alignment: Alignment.topLeft,
             ),
@@ -91,8 +96,7 @@ void jsn()
                   InputDecoration(hintText: "Baslik Giriniz", filled: true),
                 )),
 
-
-
+          SizedBox(height: 8,),
            Container(width:511,height:311,child: Column(
 
              children: [

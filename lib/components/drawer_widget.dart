@@ -72,7 +72,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                                       ),
                                       title: Text(
                                         "Anasayfa",
-                                        style: TextStyle(fontFamily: 'Poppins'),
+                                        style: TextStyle(fontFamily: 'Poppins',),
                                       ),
                                       onTap: () {
                                         Navigator.of(

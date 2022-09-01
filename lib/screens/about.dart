@@ -1,6 +1,8 @@
 import 'package:atlasilham/components/drawer_widget.dart';
 import 'package:atlasilham/firebase_process/firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
   const About({Key? key}) : super(key: key);
@@ -75,10 +77,27 @@ class _AboutState extends State<About> {
                             .height /
                             8,
                       ),
-                      title: Text(
-                        "Web Sitemiz",
-                        style: TextStyle(),
-                      ),
+                      title:  RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: ""
+                                ),
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: "Web Sitemiz",
+                                    recognizer: TapGestureRecognizer()..onTap =  () async{
+                                      var url = "https://ilhamatlasi.com/";
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    }
+                                ),
+                              ]
+                          )),
                       onTap: () {}),
                   ListTile(
                       leading: Image.network(
@@ -93,10 +112,27 @@ class _AboutState extends State<About> {
                             .height /
                             8,
                       ),
-                      title: Text(
-                        "İnstagram Sayfamız",
-                        style: TextStyle(),
-                      ),
+                      title: RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: ""
+                                ),
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: "İnstagram Sayfamız",
+                                    recognizer: TapGestureRecognizer()..onTap =  () async{
+                                      var url = "https://www.instagram.com/ilhamatlasi/";
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    }
+                                ),
+                              ]
+                          )),
                       onTap: () {}),
                   ListTile(
                       leading: Image.network(
@@ -111,10 +147,27 @@ class _AboutState extends State<About> {
                             .height /
                             8,
                       ),
-                      title: Text(
-                        "Youtube Kanalımız",
-                        style: TextStyle(),
-                      ),
+                      title: RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: ""
+                                ),
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: "Youtube Kanalımız",
+                                    recognizer: TapGestureRecognizer()..onTap =  () async{
+                                      var url = "https://www.youtube.com/c/%C4%B0lhamAtlas%C4%B1";
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    }
+                                ),
+                              ]
+                          )),
                       onTap: () {}),
 
                 ],

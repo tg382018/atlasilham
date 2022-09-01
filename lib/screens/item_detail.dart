@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_quill/flutter_quill.dart' hide Text;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../classes/Items.dart';
 
 class ItemPage extends StatefulWidget {
@@ -41,6 +43,7 @@ class _ItemPageState extends State<ItemPage> {
   void initState() {
     // TODO: implement initState
     gelenikaydet(widget.item.item_uzunmetin);
+
   }
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,7 @@ class _ItemPageState extends State<ItemPage> {
                     Text(widget.item.kategori_ad,style: TextStyle(fontSize: 15),textAlign:TextAlign.right),],),
 
 
-                  SizedBox(width: MediaQuery.of(context).size.width/3,),
+                  SizedBox(width: MediaQuery.of(context).size.width/2.5,),
 
                   Row(children: [
                     Icon(Icons.calendar_today),
@@ -96,17 +99,20 @@ class _ItemPageState extends State<ItemPage> {
               padding: const EdgeInsets.all(8.0),
               child: Center(child: Text(widget.item.item_baslik,style: TextStyle(fontWeight: FontWeight.bold,fontSize:23),textAlign: TextAlign.center,)),
             ),
-            QuillEditor(
-              focusNode: FocusNode(),
-              padding: EdgeInsets.all(0),
-              autoFocus: false,
-              scrollable: true,
-              showCursor: false,
-              controller: _controller,
-              readOnly: true,
-              expands: false,
-              scrollController: ScrollController(),
-              // true for view only mode
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: QuillEditor(
+                focusNode: FocusNode(),
+                padding: EdgeInsets.all(0),
+                autoFocus: false,
+                scrollable: true,
+                showCursor: false,
+                controller: _controller,
+                readOnly: true,
+                expands: false,
+                scrollController: ScrollController(),
+                // true for view only mode
+              ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height/17,),
             Container(child: Column(
@@ -117,7 +123,29 @@ class _ItemPageState extends State<ItemPage> {
                     Icon(FontAwesomeIcons.link,size: MediaQuery.of(context).size.height/35,),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Paylaşımı Web/İnsta sayfamızda incele ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,),textAlign:TextAlign.right),
+                      child:RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: ""
+                                ),
+                                TextSpan(
+                                    style: TextStyle(color: Colors.black),
+                                    text: "Paylaşımı Web/İnsta sayfamızda incele",
+                                    recognizer: TapGestureRecognizer()..onTap =  () async{
+                                      var url = widget.item.item_link;
+                                      if (await canLaunch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    }
+                                ),
+                              ]
+                          )),
+
+                     // child: Text("Paylaşımı Web/İnsta sayfamızda incele ",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,),textAlign:TextAlign.right),
                     ),
 
                   ],

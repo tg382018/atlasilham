@@ -52,7 +52,7 @@ class _itemWidgetiState extends State<itemWidgeti> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   image:
-                  DecorationImage(image: NetworkImage(widget.item.item_resim),fit: BoxFit.fitWidth,),
+                  DecorationImage(image: NetworkImage(widget.item.item_resim),fit: BoxFit.fill,),
                   borderRadius: BorderRadius.circular(13.0),
                 ),),
             ),
@@ -95,7 +95,12 @@ class _itemWidgetiState extends State<itemWidgeti> {
                     Text("${widget.item.item_tarih.toString()}",textAlign: TextAlign.left,),
                   ],
                 ),
-                Text("Hafta ${widget.item.item_hafta}",style: TextStyle(fontStyle: FontStyle.italic,fontWeight: FontWeight.w200),),
+                 Row(
+                   children: [
+                     Text("Hafta ${widget.item.item_hafta}",textAlign: TextAlign.start,style: TextStyle(fontStyle: FontStyle.italic,fontWeight: FontWeight.w200,),),
+                     SizedBox(width: 5,),
+                   ],
+                 ),
               ],
             ),),
             SizedBox(height: 6,)
